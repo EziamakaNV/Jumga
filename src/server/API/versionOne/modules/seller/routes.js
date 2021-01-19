@@ -1,9 +1,8 @@
 import { Router } from 'express';
-import versionOne from './versionOne/index';
+import { createSeller } from './controllers';
 
 const router = Router();
 
-router.use('/v1', versionOne);
-
+router.post('/', createSeller);
 
 export default router;

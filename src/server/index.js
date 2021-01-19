@@ -1,4 +1,5 @@
-import versionOneRoutes from './api/v1';
+// // import routes from './API/index';
+import  routes from './API/index';
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -16,7 +17,7 @@ app.use(express.static('public'));
 app.use(cors());
 
 
-app.use('/api/v1', versionOneRoutes);
+app.use('/api', routes);
 
 app.listen(PORT, () => {
     console.log(`App running on port ${PORT}`);

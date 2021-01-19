@@ -12,8 +12,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      sellerDispatch.belongsTo(models.dispatchRiders);
-      sellerDispatch.belongsTo(models.sellers);
+      // sellerDispatch.belongsTo(models.dispatchRider);
+      // sellerDispatch.belongsTo(models.seller);
     }
   };
   sellerDispatch.init({

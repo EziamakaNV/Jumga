@@ -1,9 +1,8 @@
 import { Router } from 'express';
-import versionOne from './versionOne/index';
+import routes from './routes';
 
 const router = Router();
 
-router.use('/v1', versionOne);
-
+router.use('/', routes);
 
 export default router;
