@@ -31,20 +31,30 @@ Jumga has decided to use Flutterwave because of their awesome reputation and the
 Before running the project, install the following
 - Node JS
 - Git
+- sequelize
+- postgres (Or use a cloud service)
 
 Create a FlutterWave account
 - Get the test secret key and add it to a .env file in the root folder as FLUTTERWAVE_SECRET_KEY
-- Add a postgres database url in the .env file as DEVELOPMENT_DATABASE_URL
-- Add the flutterwave web hook hash in the .env file as MY_HASH
 - set webhook url on flutterwave dashboard to 'your-url/api/v1/webhook/payment'
+
+Set .env file
+- Don't forget to get the test secret key and add it to a .env file in the root folder as FLUTTERWAVE_SECRET_KEY
+- Add a postgres database url in the .env file as 'DEVELOPMENT_DATABASE_URL'
+- Add the flutterwave web hook hash in the .env file as 'MY_HASH'
 
 
 ## To run
 $ git clone https://github.com/EziamakaNV/Jumga.git
+
 $ cd Jumga
+
 $ npm install
+
 $ npm run dev
+
 $ sequelize db:migrate
+
 $ sequelize db:seed:all
 
 
