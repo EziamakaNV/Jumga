@@ -57,7 +57,7 @@ export default {
                   
                       tx_ref: txn_reference,
                       amount: 20,
-                      currency: 'KES',
+                      currency: 'USD',
                       redirect_url:"https://webhook.site/test",
                       payment_options :"card",
                       customer:{

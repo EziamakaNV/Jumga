@@ -31,7 +31,8 @@ export default {
 
           // add transaction to the table
           const transaction = await db.paymentForSeller.create({
-              customer: customerEmail, amount: merchandise[countryCode[currency]], seller: seller.id,
+              customer: customerEmail, amount: merchandise[countryCode[currency]] + seller.deliveryFee,
+              seller: seller.id,
               currency, txn_reference, status: 'pending'
           });
 

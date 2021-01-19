@@ -2,6 +2,7 @@ import services from './services';
 import response from '../../../../helpers/response';
 import "regenerator-runtime/runtime.js";
 import db from '../../../../../database/models';
+import breakDown from '../../../../../../businessConfig';
 require('dotenv').config();
 
 export const paymentNotifications = async (req, res) => {
@@ -42,13 +43,34 @@ export const paymentNotifications = async (req, res) => {
             });
             // make the store active if the payment went through
             if (updatedPaymentForSellerActivation) {
-                const paymentInfo = await db.sellerActivationPayment.findOne({where: {
+                const paymentInfo = await db.paymentForSeller.findOne({where: {
                     txn_reference: requestBody.data.tx_ref
                 }});
+                console.log('paymentinfo >>>.', paymentInfo);
                 const sellerActive = await db.seller.update({active: true}, {
                     where: {
                         id: paymentInfo.seller
                     }
+                });
+            }
+
+            // carry out the breakdown
+            if (updatedPaymentForSellerMerchandise) {
+                // get payment info
+                const paymentInfo = await db.paymentForSeller.findOne({where: {
+                    txn_reference: requestBody.data.tx_ref
+                }});
+                console.log('payment info >>>>>>> ', paymentInfo.dataValues);
+                // get seller info
+                const sellerInfo = await db.seller.findOne({where: {
+                    id: paymentInfo.seller,
+                }});
+                const breakdown = await db.breakDown.create({
+                    paymentForSeller: paymentInfo.dataValues.id,
+                    jumgaCommission: breakDown.jumgaCommission * (paymentInfo.amount - sellerInfo.dataValues.deliveryFee),
+                    sellerProfit: breakDown.sellerProfit * (paymentInfo.amount - sellerInfo.dataValues.deliveryFee),
+                    dispatchRiderCommission: breakDown.dispatch * sellerInfo.dataValues.deliveryFee,
+                    jumgaDeliveryCommission: breakDown.jumgaDeliveryCommission * sellerInfo.dataValues.deliveryFee
                 });
             }
         }
