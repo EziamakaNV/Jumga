@@ -27,7 +27,16 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     currency: {type: DataTypes.STRING,
-      allowNull: false}
+      allowNull: false},
+    txn_reference: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+    status: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: 'pending'
+      },
   }, {
     sequelize,
     modelName: 'paymentForSeller',

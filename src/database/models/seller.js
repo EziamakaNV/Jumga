@@ -17,6 +17,16 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       allowNull: null,
     },
+    email: {
+      type: DataTypes.STRING,
+      validate: {
+        isEmail: true
+      }
+    },
+    deliveryFee: {
+      type: DataTypes.DOUBLE,
+      defaultValue: 150
+    },
   }, {
     sequelize,
     modelName: 'seller',
