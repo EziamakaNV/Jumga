@@ -46,7 +46,7 @@ export default {
             data: {
                 
                     tx_ref: txn_reference,
-                    amount: merchandise[countryCode[currency]],
+                    amount: merchandise[countryCode[currency]] + seller.deliveryFee,
                     currency,
                     redirect_url:"https://webhook.site/test",
                     payment_options :"card",
@@ -61,7 +61,6 @@ export default {
             }
         });
 
-        console.log(flutterWaveResponse);
         return flutterWaveResponse.data.data.link;
          
       } catch (error) {

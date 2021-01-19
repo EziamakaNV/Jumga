@@ -1,4 +1,7 @@
 import db from '../../../../../database/models';
+import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
+require('dotenv').config();
 
 export default {
   async createSeller(name, email) {
@@ -29,6 +32,50 @@ export default {
       } catch (error) {
           throw Error(error);
       }
+  },
+
+  async activateSeller(id, email) {
+        try {
+            const txn_reference = uuidv4();
+            const seller = await db.seller.findOne({ where : { id } });
+
+            // add transaction to the table
+          const transaction = await db.sellerActivationPayment.create({
+              seller: seller.id, amountInDollar: 20, status: 'pending', txn_reference,
+            });
+
+
+             const flutterWaveResponse = await axios({
+              method: 'post',
+              baseURL: 'https://api.flutterwave.com',
+              url: '/v3/payments',
+              headers: {
+                  "Authorization": `Bearer ${process.env.FLUTTERWAVE_SECRET_KEY}`,
+                  "Content-Type": "application/json",
+              },
+              data: {
+                  
+                      tx_ref: txn_reference,
+                      amount: 20,
+                      currency: 'KES',
+                      redirect_url:"https://webhook.site/test",
+                      payment_options :"card",
+                      customer:{
+                         email
+                      },
+                      customizations:{
+                         title: `${seller.name} store`,
+                         description: `Payment for store activation`,
+                         "logo":"https://assets.piedpiper.com/logo.png"
+                      }
+              }
+          });
+
+          return flutterWaveResponse.data.data;
+        } catch (error) {
+            throw Error(error);
+        }
   }
+
 }
     

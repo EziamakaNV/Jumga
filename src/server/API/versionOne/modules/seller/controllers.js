@@ -12,3 +12,14 @@ export const createSeller = async (req, res) => {
         return response(res, 500, error);
     }
 };
+
+export const activateSeller = async (req, res) => {
+    try {
+        const { sellerId, email } = req.body;
+        const paymentLink = await services.activateSeller(sellerId, email);
+        return response(res, 201, paymentLink);
+    } catch (error) {
+        console.log(error);
+        return response(res, 500, error);
+    }
+};

@@ -22,7 +22,11 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         isEmail: true
       }
-    }
+    },
+    deliveryFee: {
+      type: DataTypes.DOUBLE,
+      defaultValue: 150
+    },
   }, {
     sequelize,
     modelName: 'seller',
