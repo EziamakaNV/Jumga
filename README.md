@@ -44,20 +44,22 @@ Set .env file
 - Add the flutterwave web hook hash in the .env file as 'MY_HASH'
 
 
-## To run
+## To run (In your terminal)
 $ git clone https://github.com/EziamakaNV/Jumga.git
 
 $ cd Jumga
 
 $ npm install
 
-$ npm run dev
+$ export NODE_ENV=development
+
+$ export DEVELOPMENT_DATABASE_URL=your-postgres-connection-string
 
 $ sequelize db:migrate
 
 $ sequelize db:seed:all
 
-
+$ npm run dev
 ## API Endpoints
 
 ### POST '/api/v1/seller'
