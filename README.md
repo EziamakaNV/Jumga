@@ -38,7 +38,7 @@ Create a FlutterWave account
 - Get the test secret key and add it to a .env file in the root folder as FLUTTERWAVE_SECRET_KEY
 - set webhook url on flutterwave dashboard to 'your-url/api/v1/webhook/payment'
 
-Set .env file
+Set .env file (Create a .env file and add it to the root folder)
 - Don't forget to get the test secret key and add it to a .env file in the root folder as FLUTTERWAVE_SECRET_KEY
 - Add a postgres database url in the .env file as 'DEVELOPMENT_DATABASE_URL'
 - Add the flutterwave web hook hash in the .env file as 'MY_HASH'
